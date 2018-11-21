@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>BHT Coding Challenge</title>
+    </head>
+    <body>
+        <form id="form" method="GET">
+            <input type="number" id="input1"/>
+            <input type="number" id="input2"/>
+            <button type="submit">Submit</button>
+            <br/><div id="output"></div>
+        </form>
+
+        <script>
+            let form = document.querySelector("form");
+            let output = document.querySelector("#output");
+            
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                // find inputs
+                let number1 = document.querySelector("#input1");
+                let number2 = document.querySelector("#input2");
+
+                // number values
+                number1 = parseInt(number1.value);
+                number2 = parseInt(number2.value);
+
+                // just incase :)
+                let min = number1, max = number2;
+                if (number2 < number1) {
+                    min = number2;
+                    max = number1;
+                }
+
+                // loop between the two numbers and find all the numbers that have a three in
+                let numbersContainingThree = [], numberOfThrees = 0, findThreePreg = /3/g;
+                for (let i = min; i <= max; i++) {
+                    // preg match the number of three
+                    let match = i.toString().match(findThreePreg);
+                    if (match && match.length > 0) {
+                        // push to the array of numbers containing three
+                        numbersContainingThree.push(i);
+
+                        // increase the count depending on how many matches we got
+                        numberOfThrees += match.length;
+                    }
+                }
+
+                // output
+                output.innerHTML = "Number of threes: " + numberOfThrees + "<br/> Numbers containing three: " + numbersContainingThree.join(" ");
+            });
+        </script>
+    </body>
+</html>
